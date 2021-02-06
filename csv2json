@@ -11,7 +11,8 @@ def main(me, delimiter=None, indent=None, header=0, infile=sys.stdin, outfile=sy
         infile = open(infile, 'r')
     if isinstance(outfile, str):
         outfile = open(outfile, 'w')
-    print(pd.read_csv(infile, header=header).to_json(orient="records", indent=indent), file=outfile)
+    print(pd.read_csv(infile, header=header, delimiter=delimiter)
+            .to_json(orient="records", indent=indent), file=outfile)
     return
 
 if __name__ == "__main__":
