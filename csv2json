@@ -1,0 +1,26 @@
+#! /usr/bin/env python3
+# -*- coding: UTF8 -*-
+
+import argparse
+import os
+import pandas as pd
+import sys
+
+def main(me, delimiter=None, indent=None, header=0, infile=sys.stdin, outfile=sys.stdout):
+    if isinstance(infile, str):
+        infile = open(infile, 'r')
+    if isinstance(outfile, str):
+        outfile = open(outfile, 'w')
+    print(pd.read_csv(infile, header=header).to_json(orient="records", indent=indent), file=outfile)
+    return
+
+if __name__ == "__main__":
+    me = os.path.basename(sys.argv[0])
+    p = argparse.ArgumentParser(description='csv comes in, json goes out.')
+    p.add_argument('--delimiter', default=None, help='input column seperator')
+    p.add_argument('--indent', type=int, nargs='?', default=None, help='indent output (default None)')
+    p.add_argument('--header', type=int, nargs='?', default=0, help='header row (default 0)')
+    p.add_argument('--json_output', default=sys.stdout, help='json output file (default stdout)')
+    p.add_argument('csv_input', nargs='?', default=sys.stdin, help='csv input file (default stdin)')
+    args = p.parse_args()
+    main(me, args.delimiter, args.indent, args.header, args.csv_input, args.json_output)
