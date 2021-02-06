@@ -1,2 +1,5 @@
 # csv2json
-converts csv to json.  requires python and pandas.
+Converts csv to json.  requires python and pandas.
+
+
+Uses pandas because the builtin csv reader converts everything to strings.
